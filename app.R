@@ -22,6 +22,7 @@ model <- glm(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked,
 
 ui <- fluidPage(
   titlePanel("Titanic Survival Predictor"),
+  p("Enter passenger details below to estimate survival odds using historical Titanic data."),
   sidebarLayout(
     sidebarPanel(
       selectInput("pclass", "Passenger Class", choices = levels(train$Pclass)),
@@ -30,7 +31,16 @@ ui <- fluidPage(
       numericInput("sibsp", "Siblings/Spouses", value = 0, min = 0, max = 8),
       numericInput("parch", "Parents/Children", value = 0, min = 0, max = 6),
       numericInput("fare", "Fare", value = mean(train$Fare)),
-      selectInput("embarked", "Embarked", choices = levels(train$Embarked))
+      selectInput(
+        "embarked",
+        "Embarked Port",
+        choices = c(
+          "Cherbourg (C)" = "C",
+          "Queenstown (Q)" = "Q",
+          "Southampton (S)" = "S"
+        ),
+        selected = "S"
+      )
     ),
     mainPanel(
       h3("Estimated Survival Probability:"),
