@@ -40,7 +40,10 @@ ui <- fluidPage(
           "Southampton (S)" = "S"
         ),
         selected = "S"
-      )
+      ),
+      br(),
+      actionButton("reset_jack", "Jack Dawson"),
+      actionButton("reset_rose", "Rose DeWitt Bukater")
     ),
     mainPanel(
       h3("Estimated Survival Probability:"),
@@ -77,6 +80,26 @@ server <- function(input, output, session) {
       geom_vline(xintercept = pred_prob(), color = "red", linetype = "dashed", size = 1.2) +
       labs(x = "Predicted Survival Probability", y = "Count") +
       theme_minimal()
+  })
+
+  observeEvent(input$reset_jack, {
+    updateSelectInput(session, "pclass", selected = "3")
+    updateSelectInput(session, "sex", selected = "male")
+    updateNumericInput(session, "age", value = 20)
+    updateNumericInput(session, "sibsp", value = 0)
+    updateNumericInput(session, "parch", value = 0)
+    updateNumericInput(session, "fare", value = 5)
+    updateSelectInput(session, "embarked", selected = "S")
+  })
+
+  observeEvent(input$reset_rose, {
+    updateSelectInput(session, "pclass", selected = "1")
+    updateSelectInput(session, "sex", selected = "female")
+    updateNumericInput(session, "age", value = 17)
+    updateNumericInput(session, "sibsp", value = 0)
+    updateNumericInput(session, "parch", value = 1)
+    updateNumericInput(session, "fare", value = 100)
+    updateSelectInput(session, "embarked", selected = "S")
   })
 }
 
