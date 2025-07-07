@@ -1,7 +1,7 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
-
+library(titanic)
 library(tidyr)
 # Daten laden
 data(titanic_train, package = "titanic")
